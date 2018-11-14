@@ -1,43 +1,58 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title - Transportes de autos ABC</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    @Styles.Render("~/Content/style.css")
+    @Styles.Render("~/Content/materialize.min.css")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="/" class="brand-logo"><img src="~/Content/img/logo.png" alt="logo" title="Transportes de autos ABC" /></a>
+            <ul class="right hide-on-med-and-down">
+                <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                <li>@Html.ActionLink("Solicitudes", "Solicitudes", "Home")</li>
+                <li>@Html.ActionLink("Autos", "Autos", "Home")</li>
+            </ul>
+
+            <ul id="nav-mobile" class="sidenav">
+                <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    <footer class="page-footer orange">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                </ul>
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Transportes de autos ABC</h5>
+                    <p class="grey-text text-lighten-4">
+                        Proyecto Transportes de autos ABC, prueba de aspirantes.
+                    </p>
+                </div>
+                <div class="col l3 s12">
+                </div>
+                <div class="col l3 s12">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-        </footer>
-    </div>
+        <div class="footer-copyright">
+            <div class="container">
+                &copy; @DateTime.Now.Year - Transportes de autos ABC
+            </div>
+        </div>
+    </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min")
+    @Scripts.Render("~/Scripts/materialize.min")
+    @Scripts.Render("~/Scripts/init")
     @RenderSection("scripts", required: false)
 </body>
 </html>

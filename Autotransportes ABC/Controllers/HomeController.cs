@@ -26,5 +26,19 @@ namespace Autotransportes_ABC.Controllers
 
             return View();
         }
+
+        public ActionResult Autos()
+        {
+            ViewBag.Message = "Your auto page.";
+
+            return View();
+        }
+
+        public ActionResult Solicitudes()
+        {
+            ViewBag.Message = "Your solicitud page.";
+
+            return View();
+        }
     }
 }
