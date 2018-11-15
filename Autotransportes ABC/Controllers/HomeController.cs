@@ -13,16 +13,16 @@ namespace Autotransportes_ABC.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult AddAuto()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Agregamos un dato a la base de datos";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult AddSolicitud()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Agregamos una solicitud a la base de datos";
 
             return View();
         }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Autotransportes_ABC.Models.solicitudes>
+
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<h2>Inicio</h2>
+
+<p>
+    @Html.ActionLink("Agregar nuevo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.lote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.lote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha)
+        </td>
+        <td>
+            @Html.ActionLink("Ediart", "Edit", new { id=item.id_solicitud }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.id_solicitud }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.id_solicitud })
+        </td>
+    </tr>
+}
+
+</table>
