@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Autotransportes_ABC.Models.solicitudes>
 
 @{
-    ViewBag.Title = "Inicio";
+    ViewBag.Title = "Solicitudes";
 }
 
-<h2>Inicio</h2>
+<h2>Solicitudes</h2>
 
 <p>
     @Html.ActionLink("Agregar nuevo", "Create")
@@ -29,7 +29,7 @@
             @Html.DisplayFor(modelItem => item.fecha)
         </td>
         <td>
-            @Html.ActionLink("Ediart", "Edit", new { id=item.id_solicitud }) |
+            @Html.ActionLink("Editar", "Edit", new { id=item.id_solicitud }) |
             @Html.ActionLink("Detalles", "Details", new { id=item.id_solicitud }) |
             @Html.ActionLink("Eliminar", "Delete", new { id=item.id_solicitud })
         </td>

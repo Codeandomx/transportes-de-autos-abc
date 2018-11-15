@@ -8,26 +8,32 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     @Styles.Render("~/Content/style.css")
     @Styles.Render("~/Content/materialize.min.css")
+    <base href="/">
 </head>
 <body>
     <nav class="light-blue lighten-1" role="navigation">
         <div class="nav-wrapper container">
             <a id="logo-container" href="/" class="brand-logo"><img src="~/Content/img/logo.png" alt="logo" title="Transportes de autos ABC" /></a>
             <ul class="right hide-on-med-and-down">
-                <li>@Html.ActionLink("Inicio", "Index")</li>
-                <li>@Html.ActionLink("Bitacoras", "Bitacoras")</li>
-                <li>@Html.ActionLink("Solicitudes", "Solicitudes")</li>
-                <li>@Html.ActionLink("Autos", "Autos")</li>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/Bitacoras">Bitacoras</a></li>
+                <li><a href="/Solicitudes">Solicitudes</a></li>
+                <li><a href="/Autos">Autos</a></li>
             </ul>
 
             <ul id="nav-mobile" class="sidenav">
-                <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/Bitacoras">Bitacoras</a></li>
+                <li><a href="/Solicitudes">Solicitudes</a></li>
+                <li><a href="/Autos">Autos</a></li>
             </ul>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
     </nav>
 
-    @RenderBody()
+    <div class="container">
+        @RenderBody()
+    </div>
 
     <footer class="page-footer orange">
         <div class="container">
