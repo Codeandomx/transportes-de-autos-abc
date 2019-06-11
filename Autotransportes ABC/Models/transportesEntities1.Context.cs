@@ -28,5 +28,6 @@ namespace Autotransportes_ABC.Models
         public virtual DbSet<autos> autos { get; set; }
         public virtual DbSet<bitacora> bitacora { get; set; }
         public virtual DbSet<solicitudes> solicitudes { get; set; }
+        public virtual DbSet<transmisiones> transmisiones { get; set; }
     }
 }

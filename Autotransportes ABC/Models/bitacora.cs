@@ -17,5 +17,8 @@ namespace Autotransportes_ABC.Models
         public int id_bitacora { get; set; }
         public int id_solicitud { get; set; }
         public string folio { get; set; }
+    
+        public virtual autos autos { get; set; }
+        public virtual solicitudes solicitudes { get; set; }
     }
 }

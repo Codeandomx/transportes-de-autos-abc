@@ -14,11 +14,21 @@ namespace Autotransportes_ABC.Models
     
     public partial class autos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public autos()
+        {
+            this.bitacora = new HashSet<bitacora>();
+        }
+    
         public string folio { get; set; }
         public string marca { get; set; }
         public string modelo { get; set; }
         public string color { get; set; }
-        public string tipo_transmicion { get; set; }
+        public int tipo_transmicion { get; set; }
         public string descripcion { get; set; }
+    
+        public virtual transmisiones transmisiones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<bitacora> bitacora { get; set; }
     }
 }

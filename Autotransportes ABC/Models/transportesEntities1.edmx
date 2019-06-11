@@ -13,7 +13,7 @@
           <Property Name="marca" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="modelo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="color" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="tipo_transmicion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipo_transmicion" Type="int" Nullable="false" />
           <Property Name="descripcion" Type="ntext" />
         </EntityType>
         <EntityType Name="bitacora">
@@ -32,10 +32,66 @@
           <Property Name="lote" Type="int" Nullable="false" />
           <Property Name="fecha" Type="date" />
         </EntityType>
+        <EntityType Name="transmisiones">
+          <Key>
+            <PropertyRef Name="IdTransmision" />
+          </Key>
+          <Property Name="IdTransmision" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_autos_transmisiones">
+          <End Role="transmisiones" Type="Self.transmisiones" Multiplicity="1" />
+          <End Role="autos" Type="Self.autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transmisiones">
+              <PropertyRef Name="IdTransmision" />
+            </Principal>
+            <Dependent Role="autos">
+              <PropertyRef Name="tipo_transmicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bitacora_autos">
+          <End Role="autos" Type="Self.autos" Multiplicity="1" />
+          <End Role="bitacora" Type="Self.bitacora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autos">
+              <PropertyRef Name="folio" />
+            </Principal>
+            <Dependent Role="bitacora">
+              <PropertyRef Name="folio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bitacora_solicitudes">
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="1" />
+          <End Role="bitacora" Type="Self.bitacora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitudes">
+              <PropertyRef Name="id_solicitud" />
+            </Principal>
+            <Dependent Role="bitacora">
+              <PropertyRef Name="id_solicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="transportesModelStoreContainer">
           <EntitySet Name="autos" EntityType="Self.autos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bitacora" EntityType="Self.bitacora" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="solicitudes" EntityType="Self.solicitudes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transmisiones" EntityType="Self.transmisiones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_autos_transmisiones" Association="Self.FK_autos_transmisiones">
+            <End Role="transmisiones" EntitySet="transmisiones" />
+            <End Role="autos" EntitySet="autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bitacora_autos" Association="Self.FK_bitacora_autos">
+            <End Role="autos" EntitySet="autos" />
+            <End Role="bitacora" EntitySet="bitacora" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bitacora_solicitudes" Association="Self.FK_bitacora_solicitudes">
+            <End Role="solicitudes" EntitySet="solicitudes" />
+            <End Role="bitacora" EntitySet="bitacora" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -50,8 +106,10 @@
           <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="modelo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="tipo_transmicion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tipo_transmicion" Type="Int32" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="transmisiones" Relationship="Self.FK_autos_transmisiones" FromRole="autos" ToRole="transmisiones" />
+          <NavigationProperty Name="bitacora" Relationship="Self.FK_bitacora_autos" FromRole="autos" ToRole="bitacora" />
         </EntityType>
         <EntityType Name="bitacora">
           <Key>
@@ -60,6 +118,8 @@
           <Property Name="id_bitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_solicitud" Type="Int32" Nullable="false" />
           <Property Name="folio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="autos" Relationship="Self.FK_bitacora_autos" FromRole="bitacora" ToRole="autos" />
+          <NavigationProperty Name="solicitudes" Relationship="Self.FK_bitacora_solicitudes" FromRole="bitacora" ToRole="solicitudes" />
         </EntityType>
         <EntityType Name="solicitudes">
           <Key>
@@ -68,11 +128,69 @@
           <Property Name="id_solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="lote" Type="Int32" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="bitacora" Relationship="Self.FK_bitacora_solicitudes" FromRole="solicitudes" ToRole="bitacora" />
         </EntityType>
+        <EntityType Name="transmisiones">
+          <Key>
+            <PropertyRef Name="IdTransmision" />
+          </Key>
+          <Property Name="IdTransmision" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="autos" Relationship="Self.FK_autos_transmisiones" FromRole="transmisiones" ToRole="autos" />
+        </EntityType>
+        <Association Name="FK_autos_transmisiones">
+          <End Role="transmisiones" Type="Self.transmisiones" Multiplicity="1" />
+          <End Role="autos" Type="Self.autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transmisiones">
+              <PropertyRef Name="IdTransmision" />
+            </Principal>
+            <Dependent Role="autos">
+              <PropertyRef Name="tipo_transmicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bitacora_autos">
+          <End Role="autos" Type="Self.autos" Multiplicity="1" />
+          <End Role="bitacora" Type="Self.bitacora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autos">
+              <PropertyRef Name="folio" />
+            </Principal>
+            <Dependent Role="bitacora">
+              <PropertyRef Name="folio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bitacora_solicitudes">
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="1" />
+          <End Role="bitacora" Type="Self.bitacora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitudes">
+              <PropertyRef Name="id_solicitud" />
+            </Principal>
+            <Dependent Role="bitacora">
+              <PropertyRef Name="id_solicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="transportesEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="autos" EntityType="Self.autos" />
           <EntitySet Name="bitacora" EntityType="Self.bitacora" />
           <EntitySet Name="solicitudes" EntityType="Self.solicitudes" />
+          <EntitySet Name="transmisiones" EntityType="Self.transmisiones" />
+          <AssociationSet Name="FK_autos_transmisiones" Association="Self.FK_autos_transmisiones">
+            <End Role="transmisiones" EntitySet="transmisiones" />
+            <End Role="autos" EntitySet="autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bitacora_autos" Association="Self.FK_bitacora_autos">
+            <End Role="autos" EntitySet="autos" />
+            <End Role="bitacora" EntitySet="bitacora" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bitacora_solicitudes" Association="Self.FK_bitacora_solicitudes">
+            <End Role="solicitudes" EntitySet="solicitudes" />
+            <End Role="bitacora" EntitySet="bitacora" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -107,6 +225,14 @@
                 <ScalarProperty Name="id_solicitud" ColumnName="id_solicitud" />
                 <ScalarProperty Name="lote" ColumnName="lote" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transmisiones">
+            <EntityTypeMapping TypeName="transportesModel.transmisiones">
+              <MappingFragment StoreEntitySet="transmisiones">
+                <ScalarProperty Name="IdTransmision" ColumnName="IdTransmision" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

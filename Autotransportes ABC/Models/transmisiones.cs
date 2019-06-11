@@ -12,19 +12,18 @@ namespace Autotransportes_ABC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class solicitudes
+    public partial class transmisiones
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public solicitudes()
+        public transmisiones()
         {
-            this.bitacora = new HashSet<bitacora>();
+            this.autos = new HashSet<autos>();
         }
     
-        public int id_solicitud { get; set; }
-        public int lote { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
+        public int IdTransmision { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bitacora> bitacora { get; set; }
+        public virtual ICollection<autos> autos { get; set; }
     }
 }
